@@ -13,15 +13,15 @@ $ pip3 install pytube3
 If you get "KeyError: 'cipher' you will need to go to the pytube folder.
 For my case (linux), i go to
 
-    `/home/{user}/.local/lib/python3.7/site-packages/pytube`.
+    /home/{user}/.local/lib/python3.7/site-packages/pytube
 
 In this folder, open the `extract.py` file and change 
 
-    `parse_qs(formats[i]["cipher"]) for i, data in enumerate(formats)`
+    parse_qs(formats[i]["cipher"]) for i, data in enumerate(formats)
 
 to
 
-    `parse_qs(formats[i]["signatureCipher"]) for i, data in enumerate(formats)`
+    parse_qs(formats[i]["signatureCipher"]) for i, data in enumerate(formats)
 
 ## Running
 To use the program do:
