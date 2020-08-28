@@ -2,6 +2,9 @@
 # Leonardo José Zanotti
 # https://github.com/LeonardoZanotti/Zawnbe
 
+# pytube documentation if you are reading this to learn :D
+# https://readthedocs.org/projects/python-pytube/downloads/pdf/latest/
+
 # -*- coding: utf-8 -*-
 import sys,os,platform
 from optparse import OptionParser
@@ -33,6 +36,7 @@ else:
 	# Background
 	On_Black="\033[40m"       # Black Background
 
+##### logo
 if len(file) == 1:
 	print('''
 		{On_Black}{BCyan}
@@ -52,8 +56,7 @@ For {BGreen}help {Green}type:
 	sys.exit()
 
 
-##### Options
-
+##### options help
 def helper():
 	print('''
 {BGreen}Usage: zanwbe.py [options] (arg)
@@ -103,6 +106,7 @@ def helperFile():
 		'''.format(BGreen=BGreen,BCyan=BCyan,Green=Green,Yellow=Yellow))
 	return
 
+##### options list
 parser = OptionParser(add_help_option=False)
 parser.add_option('-h','--help',action='store_true',dest='help')
 parser.add_option('--helplink',action='store_true',dest='helplink')
@@ -111,31 +115,86 @@ parser.add_option('-l','--link',type='string',dest='link')
 parser.add_option('-f','--file',type='string',dest='file')
 opts, args = parser.parse_args()
 
+##### pytube functions 
+i = total = fs = 0
+def percent(downloaded, total):
+	perc = (float(downloaded) / float(total)) * float(100)
+	return perc
+
+def progressFunction(stream, chunk, file_handle, bytes_remaining):
+	global fs
+	p = progress = 0
+	while p <= 100:
+		progress = p
+		print(str(p)+'%')
+		p = percent(bytes_remaining, fs)
+	return
+
+##### download video function
 def download(video):
-	print('{Green}Downloading video...'.format(Green=Green))
-	YouTube(video).streams.first().download('./videos')
-	print('Downloaded!')
+	global i
+	global total
+	i = i + 1
+	print('''{Green}[{i}/{total}] - Downloading video...'''.format(Green=Green,i=i,total=total))
+	
+	videoDown = YouTube(video, on_progress_callback=print('baixando'))
+	fvd = videoDown.streams.filter(progressive=True, file_extension='mp4').first()
+	
+	global fs
+	fs = fvd.filesize
+	newFs = str(round(fs/(1024*1024),2))
+	
+	fvd.download('./videos')
+	print('[+]',fvd.default_filename,"[{filesize} MB] downloaded!".format(filesize=newFs))
 	# Fazer barra de progresso
 	# Colocar aquela barrinha girando print(\b \|/-\|/-)
 	return
 
+def err():
+	print('''{Red}
+ERROR. Check:
+	- Your connection
+	- The youtube video link
+	- The lines of the file (one link per line)
+				'''.format(Red=Red))
+	sys.exit()
+
+##### analysing options
 if (opts.help):
 	helper()
+
 if (opts.helplink):
 	helperLink()
+
 if (opts.helpfile):
 	helperFile()
+
 if (opts.link):
-	download(opts.link)
+	try:
+		total = 1
+		download(opts.link)
+	except:
+		err()
+		
 if (opts.file):
 	if (opts.file.split('.')[1] == "txt"):
 		print('{Green}Reading the file...'.format(Green=Green))
+		
+		##### counting total lines
 		fileOpened = open(opts.file, 'r', encoding="utf8")
 		print('Read!')
-		for line in fileOpened:
-			download(line)
+		total = sum(1 for line in fileOpened)
 		fileOpened.close()
-	else:
+		
+		##### opening the file do read and do the download
+		fileOpened = open(opts.file, 'r', encoding="utf8")			
+		for line in fileOpened:
+			try:		## download
+				download(line)
+			except:		## error
+				err()	
+		fileOpened.close()
+	else:		## if isnt a .txt file
 		print('{Red}This is not a text file!'.format(Red=Red))
 
 sys.exit()
