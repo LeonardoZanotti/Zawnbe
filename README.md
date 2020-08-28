@@ -23,6 +23,7 @@ $ cd Zawnbe/
 $ python3 zawnbe.py
 ```
 
+#### Error solving
 If you get "KeyError: 'cipher' you will need to go to the pytube folder.
 For my case (linux), i go to
 
