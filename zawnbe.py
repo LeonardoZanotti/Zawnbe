@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
+# Leonardo José Zanotti
+# https://github.com/LeonardoZanotti/Zawnbe
 
 # -*- coding: utf-8 -*-
 import sys,os,platform
 from optparse import OptionParser
+from pytube import YouTube
 
 file = sys.argv
 
+##### colors
 colors = True	# output colored c:
 machine = sys.platform 		# detecting the os
 checkPlatform = platform.platform()	# get current version of os
@@ -15,14 +19,16 @@ if checkPlatform.startswith("Windows-10") and int(platform.version().split(".")[
 	color = True	# coooolorssss \o/
 	os.system('')	# Enables the ANSI -> standard encoding that reads that colors
 if not colors:
-	BGreen = BYellow = BPurple = BCyan = Yellow = Green = On_Black = ''
+	BGreen = BYellow = BPurple = BCyan = Yellow = Green = Red = Blue = On_Black = ''
 else:
-	BGreen = "\033[1;32m"      # Bold Green
-	BYellow = "\033[1;33m"     # Bold Yellow
-	BPurple = "\033[1;35m"     # Bold Purple
-	BCyan = "\033[1;36m"       # Bold Cyan
-	Yellow = "\033[0;33m"      # Yellow
+	BGreen = "\033[1;32m"     # Bold Green
+	BYellow = "\033[1;33m"    # Bold Yellow
+	BPurple = "\033[1;35m"    # Bold Purple
+	BCyan = "\033[1;36m"      # Bold Cyan
+	Yellow = "\033[0;33m"     # Yellow
 	Green = "\033[0;32m"      # Green
+	Red = "\033[0;31m"      # Red
+	Blue = "\033[0;34m"     # Blue
 
 	# Background
 	On_Black="\033[40m"       # Black Background
@@ -46,7 +52,7 @@ For {BGreen}help {Green}type:
 	sys.exit()
 
 
-# Options
+##### Options
 
 def helper():
 	print('''
@@ -68,7 +74,9 @@ def helperLink():
 
 {BPurple}Example:
 \t {BCyan}$ python3 zawnbe.py --link https://www.youtube.com/watch?v=edC-dxfyr20
-	'''.format(BGreen=BGreen,BCyan=BCyan,BPurple=BPurple))
+
+{Green}Your video will be saved in ./videos
+	'''.format(BGreen=BGreen,BCyan=BCyan,BPurple=BPurple,Green=Green))
 	return
 
 def helperFile():
@@ -78,8 +86,8 @@ def helperFile():
 {Yellow}	
 	links.txt:
 	________________________________________________________
-	|https://www.youtube.com/watch?v=A-tiTBdFe68,		|
-	|https://www.youtube.com/watch?v=6EOrL6i5C98,		|
+	|https://www.youtube.com/watch?v=A-tiTBdFe68		|
+	|https://www.youtube.com/watch?v=6EOrL6i5C98		|
 	|https://www.youtube.com/watch?v=oNFMjW-s-SU 		|
 	|							|
 	|							|
@@ -87,10 +95,11 @@ def helperFile():
 	|							|													
 	|_______________________________________________________|
 
-{Green}Put one link per line and a comma in the end of each one. Then do:
+{Green}Put one link per line. Then do:
 	\t
 	{BCyan}$ python3 zawnbe.py --file links.txt
 
+{Green}Your videos will be saved in ./videos
 		'''.format(BGreen=BGreen,BCyan=BCyan,Green=Green,Yellow=Yellow))
 	return
 
@@ -102,6 +111,14 @@ parser.add_option('-l','--link',type='string',dest='link')
 parser.add_option('-f','--file',type='string',dest='file')
 opts, args = parser.parse_args()
 
+def download(video):
+	print('{Green}Downloading video...'.format(Green=Green))
+	YouTube(video).streams.first().download('./videos')
+	print('Downloaded!')
+	# Fazer barra de progresso
+	# Colocar aquela barrinha girando print(\b \|/-\|/-)
+	return
+
 if (opts.help):
 	helper()
 if (opts.helplink):
@@ -109,13 +126,16 @@ if (opts.helplink):
 if (opts.helpfile):
 	helperFile()
 if (opts.link):
-	print(opts.link)
+	download(opts.link)
 if (opts.file):
-	print(opts.file)
-	
+	if (opts.file.split('.')[1] == "txt"):
+		print('{Green}Reading the file...'.format(Green=Green))
+		fileOpened = open(opts.file, 'r', encoding="utf8")
+		print('Read!')
+		for line in fileOpened:
+			download(line)
+		fileOpened.close()
+	else:
+		print('{Red}This is not a text file!'.format(Red=Red))
 
-	# http://devfuria.com.br/python/manipulando-arquivos-de-texto/
-	# https://www.google.com/search?q=baixar+v%C3%ADdeo+do+youtube+com+python3
-	# https://www.it-swarm.dev/pt/python/faca-o-download-do-video-do-youtube-usando-o-python-para-um-determinado-diretorio/829550136/
-	# https://towardsdatascience.com/the-easiest-way-to-download-youtube-videos-using-python-2640958318ab
-	# https://blog.usejournal.com/how-to-download-youtube-videos-in-python-a48701e70389
+sys.exit()
