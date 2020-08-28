@@ -1,7 +1,7 @@
 <img src="./img/zawnbe.png" alt="Zawnbe.png"/>
 
 # Zawnbe
-Zanotti's youtube videos downloader is a python program which reads a text file with links of youtube videos and then download these videos
+Zanotti's youtube videos downloader is a python program which reads a text file with links of youtube videos and then download these videos.
 
 ## Requirements
 It's necessary to have python 3.7 and pytube3 installed to run the program.
