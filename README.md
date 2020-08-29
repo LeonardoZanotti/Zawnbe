@@ -7,7 +7,8 @@ Zanotti's youtube videos downloader is a python program which reads a text file 
 It's necessary to have python 3.7 and pytube3 installed to run the program.
 ```bash
 # To install pytube3 in python 3.7 run:
-$ pip3 install pytube3
+$ pip3 install pytube3      # linux
+$ pip install pytube3       # windows
 ```
 
 ## Running
@@ -20,7 +21,8 @@ $ git clone https://github.com/LeonardoZanotti/Zawnbe.git
 $ cd Zawnbe/
 
 # Run the program
-$ python3 zawnbe.py
+$ python3 zawnbe.py     # linux
+$ python .\zawnbe.py    # windows
 ```
 
 #### Error solving
