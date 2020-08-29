@@ -31,6 +31,11 @@ For my case (linux), i go to
 
     /home/{user}/.local/lib/python3.7/site-packages/pytube
 
+For windows, if you install python in the default location it should stay on
+
+	C:\Users\{user}\AppData\Local\Programs\Python\Python37\Lib\site-packages\pytube
+
+
 In this folder, open the `extract.py` file and change 
 
     parse_qs(formats[i]["cipher"]) for i, data in enumerate(formats)
