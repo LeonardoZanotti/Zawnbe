@@ -115,21 +115,7 @@ parser.add_option('-l','--link',type='string',dest='link')
 parser.add_option('-f','--file',type='string',dest='file')
 opts, args = parser.parse_args()
 
-##### pytube functions 
-i = total = fs = 0
-def percent(downloaded, total):
-	perc = (float(downloaded) / float(total)) * float(100)
-	return perc
-
-def progressFunction(stream, chunk, file_handle, bytes_remaining):
-	global fs
-	p = progress = 0
-	while p <= 100:
-		progress = p
-		print(str(p)+'%')
-		p = percent(bytes_remaining, fs)
-	return
-
+i = total = 0
 ##### download video function
 def download(video):
 	global i
@@ -137,19 +123,17 @@ def download(video):
 	i = i + 1
 	print('''{Green}[{i}/{total}] - Downloading video...'''.format(Green=Green,i=i,total=total))
 	
-	videoDown = YouTube(video, on_progress_callback=print('baixando'))
-	fvd = videoDown.streams.filter(progressive=True, file_extension='mp4').first()
+	videoDown = YouTube(video)
+	fvd = videoDown.streams.first()
 	
-	global fs
-	fs = fvd.filesize
-	newFs = str(round(fs/(1024*1024),2))
-	
+	fs = str(round(fvd.filesize/(1024*1024),2))
+		
 	fvd.download('./videos')
-	print('[+]',fvd.default_filename,"[{filesize} MB] downloaded!".format(filesize=newFs))
-	# Fazer barra de progresso
-	# Colocar aquela barrinha girando print(\b \|/-\|/-)
+	
+	print('[+]',fvd.default_filename,"[{filesize} MB] downloaded!".format(filesize=fs))
 	return
 
+##### error function
 def err():
 	print('''{Red}
 ERROR. Check:
