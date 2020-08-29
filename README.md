@@ -28,6 +28,7 @@ $ python .\zawnbe.py    # windows
 #### Error solving
 Probably when you run the program first time you will get an error.
 This error is "KeyError: 'cipher' and you will need to go to the pytube folder.
+
 For **Linux** go to
 
     /home/{user}/.local/lib/python3.7/site-packages/pytube
