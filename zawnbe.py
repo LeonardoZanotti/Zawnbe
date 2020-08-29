@@ -47,6 +47,7 @@ if len(file) == 1:
 		\t/____\__,_|_| |_|\_/\_/ |_.__/ \___|
 		\t
 		{BYellow} # Zanotti's youtube videos downloader{Green}
+		https://github.com/LeonardoZanotti/Zawnbe
 
 For {BGreen}help {Green}type:
 \t
@@ -137,6 +138,7 @@ def download(video):
 def err():
 	print('''{Red}
 ERROR. Check:
+	- The "Error solving" section of the Zawnbe on github
 	- Your connection
 	- The youtube video link
 	- The lines of the file (one link per line)
