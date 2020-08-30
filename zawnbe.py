@@ -123,7 +123,7 @@ def download(video):
 	global total
 	i = i + 1
 	print('''{Green}[{i}/{total}] - Downloading video...'''.format(Green=Green,i=i,total=total))
-	
+
 	videoDown = YouTube(video)
 	fvd = videoDown.streams.first()
 	
@@ -132,17 +132,18 @@ def download(video):
 	fvd.download('./videos')
 	
 	print('[+]',fvd.default_filename,"[{filesize} MB] downloaded!".format(filesize=fs))
+	print('↳ |███████████████████████████████████████| 100.0%')
 	return
 
 ##### error function
-def err():
+def err(link):
 	print('''{Red}
-ERROR. Check:
-	- The "Error solving" section of the Zawnbe on github
-	- Your connection
-	- The youtube video link
+ERROR: {link}	Check:
+	- The "Error solving" section of the Zawnbe repository on github
+	- Your internet connection
+	- The youtube video link (age restriction or private videos doesn't work (;-;)
 	- The lines of the file (one link per line)
-				'''.format(Red=Red))
+				'''.format(Red=Red,link=link))
 	sys.exit()
 
 ##### analysing options
@@ -160,7 +161,7 @@ if (opts.link):
 		total = 1
 		download(opts.link)
 	except:
-		err()
+		err(opts.link)
 		
 if (opts.file):
 	if (opts.file.split('.')[1] == "txt"):
@@ -178,7 +179,7 @@ if (opts.file):
 			try:		## download
 				download(line)
 			except:		## error
-				err()	
+				err(line)	
 		fileOpened.close()
 	else:		## if isnt a .txt file
 		print('{Red}This is not a text file!'.format(Red=Red))
