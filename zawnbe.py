@@ -37,9 +37,9 @@ else:
 	On_Black="\033[40m"       # Black Background
 
 ##### logo
-if len(file) == 1:
+if len(file) == 1:		### Made with figlet or toilet
 	print('''
-		{On_Black}{BCyan}
+		{On_Black}{BCyan}		 
 		\t _____                   _          
 		\t|__  /__ _ _ ____      _| |__   ___ 
 		\t  / // _` | '_ \ \ /\ / / '_ \ / _ \\
