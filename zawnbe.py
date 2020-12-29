@@ -136,14 +136,14 @@ def download(video):
 	return
 
 ##### error function
-def err(link):
+def err(link, err):
 	print('''{Red}
-ERROR: {link}	Check:
+ERROR: {err} in {link}	Check:
 	- The "Error solving" section of the Zawnbe repository on github
 	- Your internet connection
 	- The youtube video link (age restriction or private videos doesn't work (;-;)
 	- The lines of the file (one link per line)
-				'''.format(Red=Red,link=link))
+				'''.format(Red=Red,link=link,err=err))
 	sys.exit()
 
 ##### analysing options
@@ -160,8 +160,8 @@ if (opts.link):
 	try:
 		total = 1
 		download(opts.link)
-	except:
-		err(opts.link)
+	except Exception as error:
+		err(opts.link, error)
 		
 if (opts.file):
 	if (opts.file.split('.')[1] == "txt"):
@@ -178,8 +178,8 @@ if (opts.file):
 		for line in fileOpened:
 			try:		## download
 				download(line)
-			except:		## error
-				err(line)	
+			except Exception as error:		## error
+				err(line, error)
 		fileOpened.close()
 	else:		## if isnt a .txt file
 		print('{Red}This is not a text file!'.format(Red=Red))

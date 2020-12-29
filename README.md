@@ -7,8 +7,12 @@ Zanotti's youtube videos downloader is a python program which reads a text file 
 It's necessary to have [python 3.7](https://www.python.org/downloads/) and [pytube3](https://python-pytube.readthedocs.io/en/latest/) installed to run the program.
 ```bash
 # To install pytube3 in python 3.7 run:
-$ pip3 install pytube3      # linux
-$ pip install pytube3       # windows
+$ python -m pip install git+https://github.com/nficano/pytube   # principal
+$ pip3 install pytube3                                          # linux
+$ pip install pytube3                                           # windows
+
+# To uninstall pytube
+$ python -m pip uninstall pytube pytube3 pytubex
 ```
 
 ## Running
