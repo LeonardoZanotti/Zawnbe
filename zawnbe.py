@@ -37,14 +37,14 @@ else:
 	On_Black="\033[40m"       # Black Background
 
 ##### logo
-if len(file) == 1:		### Made with figlet or toilet
+if len(file) == 1:
 	print('''
 		{On_Black}{BCyan}
-		\t _____                    _          
-		\t|__  /__ ___      ___ __ | |__   ___ 
-		\t  / // _` \ \ /\ / / '_ \| '_ \ / _ \\
-		\t / /| (_| |\ V  V /| | | | |_) |  __/
-		\t/____\__,_| \_/\_/ |_| |_|_.__/ \___|
+		\t _____                   _          
+		\t|__  /__ _ _ ____      _| |__   ___ 
+		\t  / // _` | '_ \ \ /\ / / '_ \ / _ \\
+		\t / /| (_| | | | \ V  V /| |_) |  __/
+		\t/____\__,_|_| |_|\_/\_/ |_.__/ \___|
 		\t
 		{BYellow} # Zanotti's youtube videos downloader{Green}
 		https://github.com/LeonardoZanotti/Zawnbe
